@@ -134,8 +134,8 @@ defmodule Mix.Tasks.Dockerfiles do
 
   defp package_install(packages) do
     """
-    RUN apt-get install -y apt-transport-https \\
-    && apt-get update \\
+    RUN apt-get install -y apt-transport-https
+    RUN apt-get -y update \\
     && DEBIAN_FRONTEND=noninteractive TZ="Europe/London" \\
        apt-get install --no-install-recommends --no-install-suggests -y \\
        #{combine(packages, " ")}
