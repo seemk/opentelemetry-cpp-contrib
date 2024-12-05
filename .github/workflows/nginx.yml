@@ -118,7 +118,9 @@ jobs:
           --target export \
           --output type=local,dest=/tmp/otel_ngx .
           echo "artifactName=otel_ngx_module-$(echo ${{ matrix.image }} | sed s/:/-/)-${{ matrix.nginx }}.so" >> $GITHUB_ENV
-          mv otel_ngx_module.so ${{ env.artifactName }}
+      - name: rename artifact
+        run: |
+          mv /tmp/otel_ngx/otel_ngx_module.so /tmp/otel_ngx/${{ env.artifactName }}
       - name: upload artifacts
         uses: actions/upload-artifact@v4
         with:
