@@ -94,8 +94,3 @@ jobs:
         with:
           name: ${{ env.artifactName }}
           path: /tmp/otel_ngx/otel_ngx_module.so
-      - name: upload release artifacts
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/nginx')
-        with:
-
