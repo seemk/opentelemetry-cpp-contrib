@@ -39,11 +39,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts
-          pattern: otel_ngx_module-*
           merge-multiple: true
       - name: List files
         run: |
-          ls -la artifacts
+          ls -laR artifacts
       - name: Upload release artifacts
         uses: softprops/action-gh-release@v2
         with:
