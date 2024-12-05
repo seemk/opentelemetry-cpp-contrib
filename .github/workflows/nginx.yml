@@ -39,6 +39,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts
+          pattern: otel_ngx_module-*
+          merge-multiple: true
       - name: List files
         run: |
           ls -la artifacts
