@@ -14,13 +14,6 @@ on:
       - 'instrumentation/nginx/**'
       - '.github/workflows/nginx.yml'
 jobs:
-  test-release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test
-        run: |
-          echo ${{ github.ref }}
-          echo ${{ startsWith(github.ref, 'refs/tags/nginx') }}
   create-release:
     if: startsWith(github.ref, 'refs/tags/nginx')
     runs-on: ubuntu-latest
@@ -90,6 +83,7 @@ jobs:
           cd instrumentation/nginx
           docker build -t otel-nginx-test/nginx \
             --build-arg image=${{ matrix.image }} \
+            --build-arg nginx_version=${{ matrix.nginx }} \
             -f test/${{ env.dockerfile }} \
             --cache-from type=local,src=/tmp/buildx-cache/nginx \
             --cache-to type=local,dest=/tmp/buildx-cache/nginx-new \
@@ -115,6 +109,7 @@ jobs:
           mkdir -p /tmp/otel_ngx/
           docker build -f test/${{ env.dockerfile }} \
           --build-arg image=${{ matrix.image }} \
+          --build-arg nginx_version=${{ matrix.nginx }} \
           --target export \
           --output type=local,dest=/tmp/otel_ngx .
           echo "artifactName=otel_ngx_module-$(echo ${{ matrix.image }} | sed s/:/-/)-${{ matrix.nginx }}.so" >> $GITHUB_ENV
