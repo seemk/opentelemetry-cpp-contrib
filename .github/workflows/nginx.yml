@@ -6,6 +6,8 @@ on:
     paths:
       - 'instrumentation/nginx/**'
       - '.github/workflows/nginx.yml'
+    tags:
+      - 'nginx/*'
   pull_request:
     branches: [main]
     paths:
