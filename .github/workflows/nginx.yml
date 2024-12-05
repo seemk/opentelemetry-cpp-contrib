@@ -12,6 +12,13 @@ on:
       - 'instrumentation/nginx/**'
       - '.github/workflows/nginx.yml'
 jobs:
+  test-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: |
+          echo ${{ github.ref }}
+          echo ${{ startsWith(github.ref, 'refs/tags/nginx') }}
   create-release:
     if: startsWith(github.ref, 'refs/tags/nginx')
     runs-on: ubuntu-latest
