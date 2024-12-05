@@ -33,9 +33,6 @@ jobs:
         with:
           path: artifacts
           merge-multiple: true
-      - name: List files
-        run: |
-          ls -laR artifacts
       - name: Upload release artifacts
         uses: softprops/action-gh-release@v2
         with:
