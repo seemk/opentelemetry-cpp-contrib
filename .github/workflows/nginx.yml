@@ -46,6 +46,7 @@ jobs:
       - name: Upload release artifacts
         uses: softprops/action-gh-release@v2
         with:
+          fail_on_unmatched_files: true
           files: ./artifacts/*
   nginx-build-test:
     name: nginx
@@ -117,8 +118,9 @@ jobs:
           --target export \
           --output type=local,dest=/tmp/otel_ngx .
           echo "artifactName=otel_ngx_module-$(echo ${{ matrix.image }} | sed s/:/-/)-${{ matrix.nginx }}.so" >> $GITHUB_ENV
+          mv otel_ngx_module.so ${{ env.artifactName }}
       - name: upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.artifactName }}
-          path: /tmp/otel_ngx/otel_ngx_module.so
+          path: /tmp/otel_ngx/${{ env.artifactName }}
