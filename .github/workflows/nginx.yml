@@ -13,6 +13,12 @@ on:
       - '.github/workflows/nginx.yml'
 
 jobs:
+  create-release:
+    if: startsWith(github.ref, 'refs/tags/nginx')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: softprops/action-gh-release@v2
   nginx-build-test:
     name: nginx
     runs-on: ubuntu-24.04
@@ -88,3 +94,8 @@ jobs:
         with:
           name: ${{ env.artifactName }}
           path: /tmp/otel_ngx/otel_ngx_module.so
+      - name: upload release artifacts
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/nginx')
+        with:
+
